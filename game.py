@@ -1,14 +1,17 @@
 import sys, os, subprocess, pygame as pg
 from constantes import Const
 from player import Player
+from map import Map
 
 class Game():
     def __init__(self):
         self.const = Const()
         self.player = Player()
+        self.map = Map()
         self.running = True
         self.clock = self.const.CLOCK
-        self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
+        self.chemin_repertoire = self.const.chemin_repertoire
+        self.scale_factor = self.const.screen_width / (self.map.tile_width*20)
 
         # Redimensionner l'image de l'arrière-plan aux dimensions de l'écran
         self.background =  pg.image.load(self.chemin_repertoire + r".\Backgrounds\8-bit roads.jpg") 
@@ -31,8 +34,9 @@ class Game():
             self.player.update(keys)
 
             # Dessin
-            self.const.SCREEN.fill((255, 255, 255))
-            self.const.SCREEN.blit(self.resized_background, (0,0))
+            self.const.SCREEN.fill((0, 0, 0))
+            self.map.draw_map(self.const.SCREEN, self.map.tmx_data, self.scale_factor)
+            #self.const.SCREEN.blit(self.resized_background, (0,0))
             self.player.draw()
 
             # Rafraîchissement

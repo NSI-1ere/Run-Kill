@@ -1,4 +1,4 @@
-import pygame as pg
+import os, pygame as pg
 class Const():
     def __init__(self):
         self.SCREEN = pg.display.set_mode((0, 0), pg.FULLSCREEN)
@@ -10,3 +10,4 @@ class Const():
         self.speed = 10
         self.lanes = 3
         self.lane_width = 200
+        self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
