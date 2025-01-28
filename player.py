@@ -8,7 +8,7 @@ class Player():
         self.const = Const()
         self.sprites = Sprite()
         self.projectiles = Attack()
-        self.x = self.const.screen_width/2
+        self.x = self.const.lane_positions[1]
         self.y = self.const.screen_height/5*4
         self.height = self.const.player_height
         self.width = self.const.player_width
