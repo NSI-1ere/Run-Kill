@@ -7,6 +7,9 @@ class Const():
         self.screen_width, self.screen_height = pg.display.get_surface().get_size()
         self.player_width = 110
         self.player_height = 110
+        self.zombie_width = 110
+        self.zombie_height = 110
+        self.update_opps_frames = 5
         self.speed = 10
         self.lanes = 3
         self.lane_width = (self.screen_width / 20) * 2
