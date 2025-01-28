@@ -8,8 +8,7 @@ class Sprite(pygame.sprite.Sprite):
         self.const = Const()
         self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
         # Charger une image pour le joueur
-        self.image_path = self.chemin_repertoire + r"\Sprites\Jump.png"
-        self.image_jump = self.chemin_repertoire + r"\Sprites\Jump.png"
+        self.image_path = self.chemin_repertoire + r"\Sprites\Landed.png"
         self.image_landed = self.chemin_repertoire + r"\Sprites\Landed.png"
         self.image_left = self.chemin_repertoire + r"\Sprites\Left.png"
         self.image_right = self.chemin_repertoire + r"\Sprites\Right.png"
@@ -27,11 +26,6 @@ class Sprite(pygame.sprite.Sprite):
         # Déplacement basé sur les touches pressées
         self.rect.y = player_y
         self.rect.x = player_x
-        if touches[pygame.K_SPACE]:
-            if self.image_path != self.image_jump:
-                self.image_path = self.image_jump
-                self.image = pygame.image.load(self.image_path).convert_alpha()
-                self.image = pygame.transform.scale(self.image, (width, height))
         if touches[pygame.K_LEFT]:
             if self.image_path != self.image_left:
                 self.image_path = self.image_left
