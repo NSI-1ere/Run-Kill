@@ -1,14 +1,13 @@
 import sys, os, subprocess, pygame as pg
 from constantes import Const
 from player import Player
-from opponents import Opponents
+from zombie import Zombie
 from map import Map
 
 class Game():
     def __init__(self):
         self.const = Const()
         self.player = Player()
-        self.opponents = Opponents()
         self.map = Map()
         self.running = True
         self.clock = self.const.CLOCK
@@ -34,8 +33,6 @@ class Game():
             keys = pg.key.get_pressed()
             self.player.update(keys)
 
-            # Mise à jour des zombies
-            zombies = self.opponents.handle()
 
             # Dessin
             self.const.SCREEN.fill((0, 0, 0))  # Clear screen
@@ -43,10 +40,6 @@ class Game():
             # Dessiner la carte et le fond
             self.map.draw_map(self.const.SCREEN, self.map.tmx_data, self.scale_factor)
             # self.const.SCREEN.blit(self.resized_background, (0, 0))  # Uncomment if needed
-
-            # Dessiner les zombies
-            for zombie in zombies:
-                self.const.SCREEN.blit(zombie[1], zombie[2])  # Draw image at rect position
 
             # Dessiner le joueur
             self.player.draw()

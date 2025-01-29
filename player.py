@@ -1,7 +1,8 @@
-import pygame as pg
+import random, pygame as pg
 from constantes import Const
 from sprite import Sprite
 from attack import Attack
+from zombie import Zombie
 
 class Player():
     def __init__(self):
@@ -16,11 +17,14 @@ class Player():
         self.lane_positions = self.const.lane_positions
         self.key_counter = 0
         self.last_action_time = pg.time.get_ticks()
-
+        self.zombie_x = self.const.screen_width/2
+        self.zombie_y = 0
+        self.zombie_key_counter = 10
 
         # Groupe de sprites (facilite le rendu et les collisions)
         self.all_projectiles = pg.sprite.Group()
         self.all_sprites = pg.sprite.Group()
+        self.all_opponents = pg.sprite.Group()
         self.all_sprites.add(self.sprites)
     
     def handle_input(self):
@@ -45,14 +49,37 @@ class Player():
                 self.last_action_time = self.actual_time
                 self.all_projectiles.add(Attack(self))
 
+    def gen_opponents(self):
+        if self.zombie_key_counter > 0:
+            self.zombie_key_counter -= 1
+        if self.zombie_key_counter == 0:
+            self.zombie_x = self.const.lane_positions[random.randint(0, 2)]
+            self.all_opponents.add(Zombie(self))
+            self.zombie_key_counter = 100
+
+    def check_collision(self, sprite, group):
+        return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
+
     def update(self, keys):
         self.handle_input()
         self.sprites.active_sprite(keys, self.x, self.y, self.width, self.height)
+        self.gen_opponents()
         for each in self.all_projectiles:
             each.move()
-            if each.rect.y < 0:
+            if each.rect.y < self.const.screen_height/2:
                 self.all_projectiles.remove(each)
+            if self.check_collision(each, self.all_opponents):
+                for opponent in self.all_opponents:
+                    if self.check_collision(opponent, self.all_projectiles):
+                        self.all_opponents.remove(opponent)
+                self.all_projectiles.remove(each)
+        for each in self.all_opponents:
+            each.move()
+            if each.rect.y > self.const.screen_height:
+                self.all_opponents.remove(each)
+        
 
     def draw(self):
         self.all_sprites.draw(self.const.SCREEN)
         self.all_projectiles.draw(self.const.SCREEN)
+        self.all_opponents.draw(self.const.SCREEN)
