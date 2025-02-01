@@ -9,6 +9,8 @@ class Const():
         self.player_height = 110
         self.zombie_width = 110
         self.zombie_height = 110
+        self.button_width = 400
+        self.button_height = 150
         self.update_opps_frames = 5
         self.zombie_velocity = 5
         self.speed = 10

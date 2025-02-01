@@ -9,6 +9,7 @@ class Game():
         self.const = Const()
         self.player = Player()
         self.map = Map()
+        self.is_running = False
         self.running = True
         self.clock = self.const.CLOCK
         self.chemin_repertoire = self.const.chemin_repertoire
@@ -20,6 +21,7 @@ class Game():
 
     def run(self):
         pg.key.set_repeat()
+        self.is_running = True
         while self.running:
             # Gestion des événements
             for event in pg.event.get():
@@ -33,13 +35,9 @@ class Game():
             keys = pg.key.get_pressed()
             self.player.update(keys)
 
-
-            # Dessin
-            self.const.SCREEN.fill((0, 0, 0))  # Clear screen
-
             # Dessiner la carte et le fond
             self.map.draw_map(self.const.SCREEN, self.map.tmx_data, self.scale_factor)
-            # self.const.SCREEN.blit(self.resized_background, (0, 0))  # Uncomment if needed
+
 
             # Dessiner le joueur
             self.player.draw()
