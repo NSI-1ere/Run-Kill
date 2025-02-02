@@ -1,7 +1,7 @@
 import sys, os, subprocess, pygame as pg
 from constantes import Const
 from player import Player
-from zombie import Zombie
+from game_over import GameOver
 from map import Map
 
 class Game():
@@ -9,6 +9,7 @@ class Game():
         self.const = Const()
         self.player = Player()
         self.map = Map()
+        self.game_over = GameOver()
         self.is_running = False
         self.running = True
         self.clock = self.const.CLOCK
@@ -19,8 +20,9 @@ class Game():
         self.background = pg.image.load(self.chemin_repertoire + r".\Backgrounds\8-bit roads.jpg") 
         self.resized_background = pg.transform.scale(self.background, (self.const.screen_width, self.const.screen_height))
 
-    def run(self):
+    def run(self, launcher):
         pg.key.set_repeat()
+        self.player.new_game()
         self.is_running = True
         while self.running:
             # Gestion des événements
@@ -33,7 +35,7 @@ class Game():
 
             # Mise à jour
             keys = pg.key.get_pressed()
-            self.player.update(keys)
+            self.player.update(keys, self, launcher)
 
             # Dessiner la carte et le fond
             self.map.draw_map(self.const.SCREEN, self.map.tmx_data, self.scale_factor)
@@ -45,6 +47,7 @@ class Game():
             # Rafraîchissement
             pg.display.flip()
             self.const.CLOCK.tick(self.const.FPS)
+            self.is_running = not self.game_over.is_game_over
 
         pg.quit()
         sys.exit()

@@ -39,7 +39,7 @@ class Launcher():
                         self.running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.play_button_rect.collidepoint(event.pos):
-                        self.game.run()
+                        self.game.run(self)
                         self.running = False
             
             # Rafraîchissement

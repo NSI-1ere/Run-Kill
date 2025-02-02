@@ -3,11 +3,13 @@ from constantes import Const
 from sprite import Sprite
 from attack import Attack
 from zombie import Zombie
+from game_over import GameOver
 
 class Player():
     def __init__(self):
         self.const = Const()
         self.sprites = Sprite()
+        self.game_over = GameOver()
         self.x = self.const.lane_positions[1]
         self.y = self.const.screen_height/5*4
         self.height = self.const.player_height
@@ -26,6 +28,13 @@ class Player():
         self.all_sprites = pg.sprite.Group()
         self.all_opponents = pg.sprite.Group()
         self.all_sprites.add(self.sprites)
+
+    def new_game(self):
+        self.all_projectiles = pg.sprite.Group()
+        self.all_sprites = pg.sprite.Group()
+        self.all_opponents = pg.sprite.Group()
+        self.all_sprites.add(self.sprites)
+        self.x = self.const.lane_positions[1]
     
     def handle_input(self):
         self.actual_time = pg.time.get_ticks()
@@ -60,7 +69,7 @@ class Player():
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
 
-    def update(self, keys):
+    def update(self, keys, game, launcher):
         self.handle_input()
         self.sprites.active_sprite(keys, self.x, self.y, self.width, self.height)
         self.gen_opponents()
@@ -77,6 +86,7 @@ class Player():
             each.move()
             if each.rect.y > self.const.screen_height:
                 self.all_opponents.remove(each)
+                self.game_over.run(game, launcher)
         
 
     def draw(self):
