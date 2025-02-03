@@ -12,7 +12,10 @@ class Const():
         self.button_width = 400
         self.button_height = 150
         self.update_opps_frames = 5
-        self.zombie_velocity = 5
+        self.zombie_velocity = 3
+        self.running_car_velocity = 6
+        self.car_velocity = 3
+        self.car_start_px_from_player = 300
         self.speed = 10
         self.lanes = 3
         self.lane_width = (self.screen_width / 20) * 2

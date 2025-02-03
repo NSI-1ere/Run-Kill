@@ -3,6 +3,7 @@ from constantes import Const
 from sprite import Sprite
 from attack import Attack
 from zombie import Zombie
+from running_car import RunningCar
 from game_over import GameOver
 
 class Player():
@@ -22,6 +23,9 @@ class Player():
         self.zombie_x = self.const.screen_width/2
         self.zombie_y = 0
         self.zombie_key_counter = 10
+        self.running_car_gen_counter = 10
+        self.running_car_x = self.const.screen_width/2
+        self.running_car_y = 0
 
         # Groupe de sprites (facilite le rendu et les collisions)
         self.all_projectiles = pg.sprite.Group()
@@ -66,6 +70,13 @@ class Player():
             self.all_opponents.add(Zombie(self))
             self.zombie_key_counter = 100
 
+        if self.running_car_gen_counter > 0:
+            self.running_car_gen_counter -= 1
+        if self.running_car_gen_counter == 0:
+            self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
+            self.all_opponents.add(RunningCar(self))
+            self.running_car_gen_counter = 100
+
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
 
@@ -73,20 +84,28 @@ class Player():
         self.handle_input()
         self.sprites.active_sprite(keys, self.x, self.y, self.width, self.height)
         self.gen_opponents()
+    
         for each in self.all_projectiles:
             each.move()
-            if each.rect.y < self.const.screen_height/2:
+            if each.rect.y < self.const.screen_height / 2:
                 self.all_projectiles.remove(each)
             if self.check_collision(each, self.all_opponents):
                 for opponent in self.all_opponents:
                     if self.check_collision(opponent, self.all_projectiles):
                         self.all_opponents.remove(opponent)
                 self.all_projectiles.remove(each)
+    
         for each in self.all_opponents:
-            each.move()
-            if each.rect.y > self.const.screen_height:
+            if isinstance(each, RunningCar):
+                isCarRunning = each.rect.y > self.y - self.const.car_start_px_from_player
+                each.move(isCarRunning)
+            else:
+                each.move()
+        
+            if each.rect.y > self.const.screen_height + 100:
                 self.all_opponents.remove(each)
                 self.game_over.run(game, launcher)
+
         
 
     def draw(self):
