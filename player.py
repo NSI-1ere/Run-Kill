@@ -23,7 +23,7 @@ class Player():
         self.zombie_x = self.const.screen_width/2
         self.zombie_y = 0
         self.zombie_key_counter = 10
-        self.running_car_gen_counter = 10
+        self.running_car_gen_counter = 60
         self.running_car_x = self.const.screen_width/2
         self.running_car_y = 0
 
@@ -67,6 +67,8 @@ class Player():
             self.zombie_key_counter -= 1
         if self.zombie_key_counter == 0:
             self.zombie_x = self.const.lane_positions[random.randint(0, 2)]
+            while self.zombie_x == self.running_car_x:
+                self.zombie_x = self.const.lane_positions[random.randint(0, 2)]
             self.all_opponents.add(Zombie(self))
             self.zombie_key_counter = 100
 
@@ -74,8 +76,10 @@ class Player():
             self.running_car_gen_counter -= 1
         if self.running_car_gen_counter == 0:
             self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
+            while self.running_car_x == self.zombie_x:
+                self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
             self.all_opponents.add(RunningCar(self))
-            self.running_car_gen_counter = 100
+            self.running_car_gen_counter = 175
 
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
@@ -103,7 +107,7 @@ class Player():
             else:
                 each.move()
         
-            if each.rect.y > self.const.screen_height + 100:
+            if isinstance(each, Zombie) and each.rect.y > self.const.screen_height + 100:
                 self.all_opponents.remove(each)
                 self.game_over.run(game, launcher)
 
