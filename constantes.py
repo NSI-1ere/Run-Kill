@@ -9,12 +9,16 @@ class Const():
         self.player_height = 110
         self.zombie_width = 110
         self.zombie_height = 110
+        self.running_car_width = 110
+        self.running_car_height = 110
+        self.broken_car_width = 110
+        self.broken_car_height = 110
         self.button_width = 400
         self.button_height = 150
         self.update_opps_frames = 5
         self.zombie_velocity = 3
+        self.scrolling_velocity = 1
         self.running_car_velocity = 6
-        self.car_velocity = 3
         self.car_start_px_from_player = 300
         self.speed = 10
         self.lanes = 3

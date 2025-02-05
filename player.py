@@ -4,6 +4,7 @@ from sprite import Sprite
 from attack import Attack
 from zombie import Zombie
 from running_car import RunningCar
+from broken_car import BrokenCar
 from game_over import GameOver
 
 class Player():
@@ -24,8 +25,11 @@ class Player():
         self.zombie_y = 0
         self.zombie_key_counter = 10
         self.running_car_gen_counter = 60
+        self.broken_car_gen_counter = 60
         self.running_car_x = self.const.screen_width/2
         self.running_car_y = 0
+        self.broken_car_x = self.const.screen_width/2
+        self.broken_car_y = 0
 
         # Groupe de sprites (facilite le rendu et les collisions)
         self.all_projectiles = pg.sprite.Group()
@@ -80,6 +84,15 @@ class Player():
                 self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
             self.all_opponents.add(RunningCar(self))
             self.running_car_gen_counter = 175
+
+        if self.broken_car_gen_counter > 0:
+            self.broken_car_gen_counter -= 1
+        if self.broken_car_gen_counter == 0:
+            self.broken_car_x = self.const.lane_positions[random.randint(0, 2)]
+            while self.broken_car_x == self.zombie_x:
+                self.broken_car_x = self.const.lane_positions[random.randint(0, 2)]
+            self.all_opponents.add(BrokenCar(self))
+            self.broken_car_gen_counter = 220
 
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
