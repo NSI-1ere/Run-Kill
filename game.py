@@ -19,6 +19,9 @@ class Game():
         self.resized_background = pg.transform.scale(self.background, (self.const.screen_width, self.const.screen_height))
 
     def run(self, launcher):
+        pg.display.set_caption("Run&Kill")
+        Icon = pg.image.load(self.const.chemin_repertoire + r'/Sprites/Banner/Icon.png')
+        pg.display.set_icon(Icon)
         pg.key.set_repeat()
         self.player.new_game()
         self.is_running = True
