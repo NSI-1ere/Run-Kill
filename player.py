@@ -91,8 +91,9 @@ class Player():
                 self.all_projectiles.remove(each)
             if self.check_collision(each, self.all_opponents):
                 for opponent in self.all_opponents:
-                    if self.check_collision(opponent, self.all_projectiles):
-                        self.all_opponents.remove(opponent)
+                    if isinstance(opponent, Zombie):
+                        if self.check_collision(opponent, self.all_projectiles):
+                            self.all_opponents.remove(opponent)
                 self.all_projectiles.remove(each)
     
         for each in self.all_opponents:
