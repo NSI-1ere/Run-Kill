@@ -107,7 +107,7 @@ class Player():
             else:
                 each.move()
         
-            if isinstance(each, Zombie) and each.rect.y > self.const.screen_height - 100:
+            if self.check_collision(each, self.all_sprites):
                 self.all_opponents.remove(each)
                 self.game_over.run(game, launcher)
 

@@ -1,5 +1,4 @@
 from game import Game
-from map import Map
 from constantes import Const
 import pygame, math
 
@@ -7,7 +6,6 @@ class Launcher():
     def __init__(self):
         self.game = Game()
         self.const = Const()
-        self.map = Map()
         self.banner = pygame.image.load(self.game.const.chemin_repertoire + r"\Sprites\Banner\Banner.png").convert_alpha()
         self.banner = pygame.transform.scale(self.banner, (self.banner.get_width()/2, self.banner.get_height()/2))
         self.baner_rect = self.banner.get_rect()
@@ -25,7 +23,7 @@ class Launcher():
         print(self.banner.get_width(), self.banner.get_height())
         pygame.key.set_repeat()
         self.const.SCREEN.fill((255, 0, 0))
-        self.map.draw_map(self.const.SCREEN, self.map.tmx_data, self.game.scale_factor)
+        self.const.SCREEN.blit(self.game.resized_background, (0, 0))
         self.const.SCREEN.blit(self.play_button, self.play_button_rect)
         self.const.SCREEN.blit(self.banner, self.baner_rect)
         while self.running:

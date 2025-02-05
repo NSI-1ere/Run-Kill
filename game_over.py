@@ -1,11 +1,9 @@
 import pygame
 from constantes import Const
-from map import Map
 
 class GameOver():
     def __init__(self):
         self.const = Const()
-        self.map = Map()
         self.font = pygame.font.Font(None, 160)
         self.text = self.font.render("Game Over", True, (255, 0, 0))
         self.text_rect = self.text.get_rect()
@@ -15,7 +13,7 @@ class GameOver():
     def run(self, game, launcher):
         self.is_game_over = True
         self.const.SCREEN.fill((0, 0, 0))
-        self.map.draw_map(self.const.SCREEN, self.map.tmx_data, self.const.screen_width / (self.map.tile_width * 20))
+        self.const.SCREEN.blit(game.resized_background, (0, 0))
         self.const.SCREEN.blit(self.text, self.text_rect)
         while self.is_game_over:
             for event in pygame.event.get():
