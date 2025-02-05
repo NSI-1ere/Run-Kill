@@ -102,7 +102,7 @@ class Player():
     
         for each in self.all_opponents:
             if isinstance(each, RunningCar):
-                isCarRunning = each.rect.y > self.y - self.const.car_start_px_from_player
+                isCarRunning = each.rect.y > self.y - self.const.car_start_px_from_player and self.x == each.rect.x
                 each.move(isCarRunning)
             else:
                 each.move()
