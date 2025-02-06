@@ -1,6 +1,6 @@
-import pygame, os
+import pygame
 from constantes import Const
-from image_loader import ImageLoader
+from Functions.image_loader import ImageLoader
 
 # Classe Joueur
 class Sprite(pygame.sprite.Sprite):
