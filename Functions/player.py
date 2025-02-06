@@ -1,11 +1,11 @@
 import random, pygame as pg
 from constantes import Const
-from sprite import Sprite
-from attack import Attack
-from zombie import Zombie
-from running_car import RunningCar
-from broken_car import BrokenCar
-from game_over import GameOver
+from Functions.sprite import Sprite
+from Functions.attack import Attack
+from Functions.zombie import Zombie
+from Functions.running_car import RunningCar
+from Functions.broken_car import BrokenCar
+from Functions.game_over import GameOver
 
 class Player():
     def __init__(self):

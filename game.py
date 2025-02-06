@@ -1,7 +1,7 @@
 import sys, os, subprocess, pygame as pg
 from constantes import Const
-from player import Player
-from game_over import GameOver
+from Functions.player import Player
+from Functions.game_over import GameOver
 
 class Game():
     def __init__(self):

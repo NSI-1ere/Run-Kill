@@ -6,7 +6,7 @@ class Sprite(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.const = Const()
-        self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
+        self.chemin_repertoire = self.const.chemin_repertoire
         # Charger une image pour le joueur
         self.spritesheet = pygame.image.load(self.chemin_repertoire + r"\Sprites\Player\Basic Skin.png").convert_alpha()
         self.image = self.get_image(0,0)
