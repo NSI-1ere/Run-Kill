@@ -22,7 +22,7 @@ class Launcher():
     def run(self):
         pygame.key.set_repeat()
         self.const.SCREEN.fill((255, 0, 0))
-        self.const.SCREEN.blit(self.game.resized_background, (0, 0))
+        self.const.SCREEN.blit(self.game.background, (0, 0))
         self.const.SCREEN.blit(self.play_button, self.play_button_rect)
         self.const.SCREEN.blit(self.banner, self.baner_rect)
         while self.running:

@@ -2,12 +2,14 @@ import sys, os, subprocess, pygame as pg
 from constantes import Const
 from Functions.player import Player
 from Functions.game_over import GameOver
+from Functions.image_loader import ImageLoader
 
 class Game():
     def __init__(self):
         self.const = Const()
         self.player = Player()
         self.game_over = GameOver()
+        self.loader = ImageLoader()
         self.is_running = False
         self.running = True
         self.clock = self.const.CLOCK
@@ -17,8 +19,7 @@ class Game():
         self.map_2_y = 0 - self.const.screen_height
 
         # Redimensionner l'image de l'arrière-plan aux dimensions de l'écran
-        self.background = pg.image.load(self.chemin_repertoire + r".\Backgrounds\Map.png").convert_alpha() 
-        self.resized_background = pg.transform.scale(self.background, (self.const.screen_width, self.const.screen_height))
+        self.background = self.loader.load_image(self.chemin_repertoire + r".\Backgrounds\Map.png", self.const.screen_width, self.const.screen_height)
 
     def new_game(self):
         self.all_projectiles = pg.sprite.Group()
@@ -30,9 +31,9 @@ class Game():
 
     def scrolling(self):
         self.const.SCREEN.fill((0, 0, 0))
-        self.const.SCREEN.blit(self.resized_background, (0, self.map_y))
+        self.const.SCREEN.blit(self.background, (0, self.map_y))
         self.map_y += self.const.scrolling_velocity
-        self.const.SCREEN.blit(self.resized_background, (0, self.map_2_y))
+        self.const.SCREEN.blit(self.background, (0, self.map_2_y))
         self.map_2_y += self.const.scrolling_velocity
         if self.map_y >= 1080:
             self.map_y = 0 - 1080

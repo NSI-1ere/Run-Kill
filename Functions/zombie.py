@@ -1,5 +1,5 @@
 from constantes import Const
-from image_loader import ImageLoader
+from Functions.image_loader import ImageLoader
 import pygame
 
 class Zombie(pygame.sprite.Sprite):
