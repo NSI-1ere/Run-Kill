@@ -1,4 +1,4 @@
-import pygame, os
+import pygame
 from constantes import Const
 from Functions.image_loader import ImageLoader
 

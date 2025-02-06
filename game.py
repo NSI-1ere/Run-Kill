@@ -61,8 +61,7 @@ class Game():
             keys = pg.key.get_pressed()
             self.player.update(keys, self, launcher)
 
-            # Dessiner la carte et le fond
-            #self.const.SCREEN.blit(self.resized_background, (0, 0))
+            
             self.scrolling()
 
 

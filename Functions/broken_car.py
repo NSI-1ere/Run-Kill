@@ -1,6 +1,6 @@
 from constantes import Const
-from Functions.image_loader import ImageLoader
-import pygame, random
+from image_loader import ImageLoader
+import pygame
 
 class BrokenCar(pygame.sprite.Sprite):
     def __init__(self, player):
