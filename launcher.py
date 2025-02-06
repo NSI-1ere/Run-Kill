@@ -20,7 +20,6 @@ class Launcher():
         self.play_button_rect.y = math.ceil(self.const.screen_height / 2 - self.play_button_rect.height / 2)
 
     def run(self):
-        print(self.banner.get_width(), self.banner.get_height())
         pygame.key.set_repeat()
         self.const.SCREEN.fill((255, 0, 0))
         self.const.SCREEN.blit(self.game.resized_background, (0, 0))
