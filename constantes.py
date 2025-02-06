@@ -10,9 +10,9 @@ class Const():
         self.zombie_width = 110
         self.zombie_height = 110
         self.running_car_width = 110
-        self.running_car_height = 110
+        self.running_car_height = 196
         self.broken_car_width = 110
-        self.broken_car_height = 110
+        self.broken_car_height = 196
         self.button_width = 400
         self.button_height = 150
         self.update_opps_frames = 5

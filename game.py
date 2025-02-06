@@ -13,12 +13,34 @@ class Game():
         self.clock = self.const.CLOCK
         self.chemin_repertoire = self.const.chemin_repertoire
         self.scale_factor = self.const.screen_width / (16 * 20)
+        self.map_y = 0
+        self.map_2_y = 0 - self.const.screen_height
 
         # Redimensionner l'image de l'arrière-plan aux dimensions de l'écran
         self.background = pg.image.load(self.chemin_repertoire + r".\Backgrounds\Map.png").convert_alpha() 
         self.resized_background = pg.transform.scale(self.background, (self.const.screen_width, self.const.screen_height))
 
+    def new_game(self):
+        self.all_projectiles = pg.sprite.Group()
+        self.all_sprites = pg.sprite.Group()
+        self.all_opponents = pg.sprite.Group()
+        self.all_sprites.add(self.player.sprites)
+        self.map_y = 0
+        self.map_2_y = 0 - self.const.screen_height
+
+    def scrolling(self):
+        self.const.SCREEN.fill((0, 0, 0))
+        self.const.SCREEN.blit(self.resized_background, (0, self.map_y))
+        self.map_y += self.const.scrolling_velocity
+        self.const.SCREEN.blit(self.resized_background, (0, self.map_2_y))
+        self.map_2_y += self.const.scrolling_velocity
+        if self.map_y >= 1080:
+            self.map_y = 0 - 1080
+        if self.map_2_y >= 1080:
+            self.map_2_y = 0 - 1080
+
     def run(self, launcher):
+        self.new_game()
         pg.display.set_caption("Run&Kill")
         Icon = pg.image.load(self.const.chemin_repertoire + r'/Sprites/Banner/Icon.png')
         pg.display.set_icon(Icon)
@@ -39,7 +61,8 @@ class Game():
             self.player.update(keys, self, launcher)
 
             # Dessiner la carte et le fond
-            self.const.SCREEN.blit(self.resized_background, (0, 0))
+            #self.const.SCREEN.blit(self.resized_background, (0, 0))
+            self.scrolling()
 
 
             # Dessiner le joueur

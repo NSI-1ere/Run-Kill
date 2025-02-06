@@ -83,7 +83,7 @@ class Player():
             while self.running_car_x == self.zombie_x:
                 self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
             self.all_opponents.add(RunningCar(self))
-            self.running_car_gen_counter = 175
+            self.running_car_gen_counter = 465
 
         if self.broken_car_gen_counter > 0:
             self.broken_car_gen_counter -= 1
@@ -92,7 +92,7 @@ class Player():
             while self.broken_car_x == self.zombie_x:
                 self.broken_car_x = self.const.lane_positions[random.randint(0, 2)]
             self.all_opponents.add(BrokenCar(self))
-            self.broken_car_gen_counter = 220
+            self.broken_car_gen_counter = 520
 
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
