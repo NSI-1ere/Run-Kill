@@ -1,14 +1,18 @@
 import pygame, os
 from constantes import Const
+from image_loader import ImageLoader
 
 # Classe Joueur
 class Sprite(pygame.sprite.Sprite):
     def __init__(self):
         super().__init__()
         self.const = Const()
+
+        self.loader = ImageLoader()
         self.chemin_repertoire = self.const.chemin_repertoire
+
         # Charger une image pour le joueur
-        self.spritesheet = pygame.image.load(self.chemin_repertoire + r"\Sprites\Player\Basic Skin.png").convert_alpha()
+        self.spritesheet = self.loader.load_image(self.chemin_repertoire + r"\Sprites\Player\Basic Skin.png",96, 774)
         self.image = self.get_image(0,0)
         self.image.set_colorkey((0,0,0))
         self.next_frame = 0
