@@ -23,13 +23,13 @@ class Player():
         self.last_action_time = pg.time.get_ticks()
         self.zombie_x = self.const.screen_width/2
         self.zombie_y = 0
-        self.zombie_key_counter = 10
-        self.running_car_gen_counter = 60
-        self.broken_car_gen_counter = 60
+        self.item_generation_counter = 10
         self.running_car_x = self.const.screen_width/2
         self.running_car_y = 0
         self.broken_car_x = self.const.screen_width/2
         self.broken_car_y = 0
+        self.last_generated_opponent = None
+        self.last_generated_opponent_lane = None
 
         # Groupe de sprites (facilite le rendu et les collisions)
         self.all_projectiles = pg.sprite.Group()
@@ -67,32 +67,44 @@ class Player():
                 self.all_projectiles.add(Attack(self))
 
     def gen_opponents(self):
-        if self.zombie_key_counter > 0:
-            self.zombie_key_counter -= 1
-        if self.zombie_key_counter == 0:
-            self.zombie_x = self.const.lane_positions[random.randint(0, 2)]
-            while self.zombie_x == self.running_car_x:
-                self.zombie_x = self.const.lane_positions[random.randint(0, 2)]
+        if self.item_generation_counter > 0:
+            self.item_generation_counter -= 1
+
+        what_to_gen = None
+        
+        generated_something = False
+        if self.item_generation_counter == 0:
+            opponents = self.const.opponents[:]
+            if self.last_generated_opponent:
+                opponents.remove(self.last_generated_opponent)
+
+            lanes = self.const.lane_positions[:]
+            if self.last_generated_opponent_lane:
+                lanes.remove(self.last_generated_opponent_lane)
+
+            what_to_gen = random.choice(opponents)
+            lane_to_use = random.choice(lanes)
+            self.last_generated_opponent = what_to_gen
+            self.last_generated_opponent_lane = lane_to_use
+
+        if what_to_gen == "zombie":
+            self.zombie_x = lane_to_use
             self.all_opponents.add(Zombie(self))
-            self.zombie_key_counter = 100
+            generated_something = True
 
-        if self.running_car_gen_counter > 0:
-            self.running_car_gen_counter -= 1
-        if self.running_car_gen_counter == 0:
-            self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
-            while self.running_car_x == self.zombie_x:
-                self.running_car_x = self.const.lane_positions[random.randint(0, 2)]
+        if what_to_gen == "running_car":
+            self.running_car_x = lane_to_use
             self.all_opponents.add(RunningCar(self))
-            self.running_car_gen_counter = 465
+            generated_something = True
 
-        if self.broken_car_gen_counter > 0:
-            self.broken_car_gen_counter -= 1
-        if self.broken_car_gen_counter == 0:
-            self.broken_car_x = self.const.lane_positions[random.randint(0, 2)]
-            while self.broken_car_x == self.zombie_x:
-                self.broken_car_x = self.const.lane_positions[random.randint(0, 2)]
+        if what_to_gen == "broken_car":
+            self.broken_car_x = lane_to_use
             self.all_opponents.add(BrokenCar(self))
-            self.broken_car_gen_counter = 520
+            generated_something = True
+        
+        if generated_something:
+            self.item_generation_counter = 150
+
 
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)

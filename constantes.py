@@ -7,6 +7,7 @@ class Const():
         self.screen_width, self.screen_height = pg.display.get_surface().get_size()
         self.player_width = 110
         self.player_height = 110
+        self.opponents = ["zombie", "running_car", "broken_car"]
         self.zombie_width = 110
         self.zombie_height = 110
         self.running_car_width = 110
