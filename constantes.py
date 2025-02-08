@@ -8,6 +8,10 @@ class Const():
         self.player_width = 110
         self.player_height = 110
         self.opponents = ["zombie", "running_car", "broken_car"]
+        self.heart_width = 50
+        self.heart_height = 50
+        self.heart_offset = 30
+        self.heart_y = 50
         self.zombie_width = 110
         self.zombie_height = 110
         self.running_car_width = 110
