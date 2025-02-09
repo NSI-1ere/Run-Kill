@@ -19,7 +19,7 @@ class Const():
         self.running_car_height = 196
         self.broken_car_width = 110
         self.broken_car_height = 196
-        self.button_width = 400
+        self.button_width = 265
         self.button_height = 150
         self.attack_width = 30
         self.attack_height = 30

@@ -1,7 +1,7 @@
 from game import Game
 from Functions.store import Store
 from constantes import Const
-import pygame, math
+import pygame, math, time
 
 class Launcher():
     def __init__(self):
@@ -23,7 +23,7 @@ class Launcher():
         self.play_button = pygame.transform.scale(self.play_button, (self.const.button_width, self.const.button_height))
         self.play_button_rect = self.play_button.get_rect()
         self.play_button_rect.x = math.ceil(self.const.screen_width / 2 - self.play_button_rect.width / 2)
-        self.play_button_rect.y = math.ceil(self.const.screen_height / 2 - self.play_button_rect.height / 2)
+        self.play_button_rect.y = math.ceil(self.const.screen_height / 2 - self.play_button_rect.height / 2) + self.const.button_height/2
 
         # Bouton Stroe
         self.store_button = pygame.image.load(self.game.const.chemin_repertoire + r"\Assets\Banner\Store.png").convert_alpha()
