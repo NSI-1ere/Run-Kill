@@ -31,3 +31,4 @@ class Const():
         self.lane_width = (self.screen_width / 20) * 2
         self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
         self.lane_positions = [(self.screen_width / 20) * 4.5 + self.player_width/2 - self.lane_width/4 , (self.screen_width / 20) * 9.5 + self.player_width/2 - self.lane_width/4, (self.screen_width / 20) * 14.5 + self.player_width/2 - self.lane_width/4]
+        self.draw_heart_position = self.screen_width - 50 - (self.heart_width * 3 + self.heart_offset * 3)

@@ -13,7 +13,7 @@ class GameOver():
     def run(self, game, launcher):
         self.is_game_over = True
         self.const.SCREEN.fill((0, 0, 0))
-        self.const.SCREEN.blit(game.resized_background, (0, 0))
+        self.const.SCREEN.blit(game.background, (0, 0))
         self.const.SCREEN.blit(self.text, self.text_rect)
         while self.is_game_over:
             for event in pygame.event.get():

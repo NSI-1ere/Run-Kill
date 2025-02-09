@@ -7,12 +7,14 @@ from Functions.zombie import Zombie
 from Functions.running_car import RunningCar
 from Functions.broken_car import BrokenCar
 from Functions.game_over import GameOver
+from Functions.image_loader import ImageLoader
 
 class Player():
     def __init__(self):
         self.const = Const()
         self.sprites = Sprite()
         self.game_over = GameOver()
+        self.loader = ImageLoader()
         self.x = self.const.lane_positions[1]
         self.y = self.const.screen_height / 5 * 4
         self.height = self.const.player_height
@@ -40,7 +42,9 @@ class Player():
         self.all_hearts = pg.sprite.Group()
         self.all_sprites.add(self.sprites)
 
-        self.life = Life(self)
+        # Gérer la vie
+        self.heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Sprites\Life\Heart.png', self.const.heart_width, self.const.heart_height)
+        self.broken_heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Sprites\Life\BrokenHeart.png', self.const.broken_heart_width, self.const.heart_height)
         self.previous_hp = self.hp_counter
 
     def new_game(self):
@@ -51,8 +55,8 @@ class Player():
         self.all_hearts = pg.sprite.Group()
         self.x = self.const.lane_positions[1]
         self.hp_counter = 3
-        self.life = Life(self)
         self.previous_hp = self.hp_counter
+        self.update_hearts()
 
     def handle_input(self):
         self.actual_time = pg.time.get_ticks()
@@ -109,7 +113,7 @@ class Player():
 
     def update(self, keys, game, launcher):
         self.handle_input()
-        self.sprites.active_sprite(keys, self.x, self.y, self.width, self.height)
+        self.sprites.active_sprite(keys, self.x, self.y)
         self.gen_opponents()
 
         for each in self.all_projectiles:
@@ -137,10 +141,19 @@ class Player():
                     self.game_over.run(game, launcher)
                 
         if self.hp_counter != self.previous_hp:
-            self.all_hearts.empty()
-            self.life = Life(self)
-            self.all_sprites.add(self.all_hearts)
-            self.previous_hp = self.hp_counter
+            self.update_hearts()
+
+
+    def update_hearts(self):
+        self.all_hearts.empty()
+        self.draw_pos = self.const.draw_heart_position
+        for _ in range(self.hp_counter):
+            self.all_hearts.add(Life(self.heart_image, self.draw_pos, self.const.heart_y))
+            self.draw_pos += self.const.heart_width + self.const.heart_offset
+        for _ in range(3 - self.hp_counter):
+            self.all_hearts.add(Life(self.broken_heart_image, self.draw_pos, self.const.heart_y))
+            self.draw_pos += self.const.heart_width + self.const.heart_offset
+        self.previous_hp = self.hp_counter
 
     def draw(self):
         self.all_sprites.draw(self.const.SCREEN)

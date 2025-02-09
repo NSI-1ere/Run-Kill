@@ -11,12 +11,8 @@ class Sprite(pygame.sprite.Sprite):
         self.loader = ImageLoader()
         self.chemin_repertoire = self.const.chemin_repertoire
 
-        # Charger une image pour le joueur
-        self.spritesheet = self.loader.load_image(self.chemin_repertoire + r"\Sprites\Player\Basic Skin.png",96, 774)
-        self.image = self.get_image(0,0)
-        self.image.set_colorkey((0,0,0))
-        self.next_frame = 0
         # Charger toutes les images du joueur
+        self.spritesheet = self.loader.load_image(self.chemin_repertoire + r"\Sprites\Player\Basic Skin.png",96, 774)
         self.image_1 = self.get_image(0,0)
         self.image_2 = self.get_image(0,129)
         self.image_3 = self.get_image(0,258)
@@ -29,6 +25,10 @@ class Sprite(pygame.sprite.Sprite):
         self.image_4.set_colorkey((0,0,0))
         self.image_5.set_colorkey((0,0,0))
         self.image_6.set_colorkey((0,0,0))
+        # Charger une image pour le joueur
+        self.image = self.image_1
+        self.image.set_colorkey((0,0,0))
+        self.next_frame = 0
         # Obtenir le rectangle de l'image
         self.rect = self.image.get_rect()
 
@@ -41,7 +41,7 @@ class Sprite(pygame.sprite.Sprite):
         image.blit(self.spritesheet, (0, 0), (x, y, 95, 129))
         return image
 
-    def active_sprite(self, touches, player_x, player_y, width, height):
+    def active_sprite(self, touches, player_x, player_y):
         # Déplacement basé sur les touches pressées
         self.rect.y = player_y
         self.rect.x = player_x
