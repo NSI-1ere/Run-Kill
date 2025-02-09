@@ -32,6 +32,8 @@ class Player():
         self.broken_car_x = self.const.screen_width / 2
         self.broken_car_y = 0
         self.hp_counter = 3
+        self.blinking_interval = 0
+        self.blinking_iterations = 0
         self.last_generated_opponent = None
         self.last_generated_opponent_lane = None
 
@@ -134,9 +136,11 @@ class Player():
             else:
                 each.move()
 
-            if self.check_collision(each, self.all_sprites):
+            if self.check_collision(each, self.all_sprites) and self.blinking_iterations <= 0:
                 self.all_opponents.remove(each)
                 self.hp_counter -= 1
+                self.blinking_interval = self.const.blinking_interval
+                self.blinking_iterations = self.const.blinking_iterations
                 if self.hp_counter <= 0:
                     self.game_over.run(game, launcher)
                 
@@ -156,7 +160,17 @@ class Player():
         self.previous_hp = self.hp_counter
 
     def draw(self):
-        self.all_sprites.draw(self.const.SCREEN)
+        if self.blinking_iterations > 0:
+            if self.blinking_interval >= 0:
+                self.all_sprites.draw(self.const.SCREEN)
+            elif self.blinking_interval <= -self.const.blinking_interval:
+                self.blinking_interval = self.const.blinking_interval
+                self.blinking_iterations -= 1
+            self.blinking_interval -= 1
+        
+        if self.blinking_iterations <= 0:
+            self.all_sprites.draw(self.const.SCREEN)
+        
         self.all_projectiles.draw(self.const.SCREEN)
         self.all_opponents.draw(self.const.SCREEN)
         self.all_hearts.draw(self.const.SCREEN)

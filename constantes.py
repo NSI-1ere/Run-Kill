@@ -34,3 +34,5 @@ class Const():
         self.draw_heart_position = self.screen_width - 50 - (self.heart_width * 3 + self.heart_offset * 3)
         self.attribute_width, self.attribute_height = 50, 50
         self.store_button_width, self.store_button_height = 200, 200
+        self.blinking_interval = 30
+        self.blinking_iterations = 3
