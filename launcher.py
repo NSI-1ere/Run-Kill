@@ -32,8 +32,6 @@ class Launcher():
         self.store_button_rect.x = math.ceil(self.const.screen_width - 50 - self.store_button_rect.width)
         self.store_button_rect.y = math.ceil(self.const.screen_height - 50 - self.store_button_rect.height)
 
-        pygame.mixer.init()
-
     def run(self):
         pygame.key.set_repeat()
         pygame.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\LauncherLoop.mp3')
@@ -52,6 +50,7 @@ class Launcher():
                     self.running = False
                 if event.type == pygame.KEYDOWN:
                     if event.key == pygame.K_ESCAPE:
+                        pygame.quit()
                         self.running = False
                 if event.type == pygame.MOUSEBUTTONDOWN:
                     if self.play_button_rect.collidepoint(event.pos):

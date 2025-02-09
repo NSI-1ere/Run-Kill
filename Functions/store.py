@@ -43,7 +43,7 @@ class Store():
                     pg.mixer.music.stop()
 
             self.draw()
-            pg.display.flip()
+            pg.display.flip()   
 
 
     def draw(self):
