@@ -14,8 +14,8 @@ class Store():
     def __init__(self):
         self.const = Const()
         self.loader = ImageLoader()
-        self.product_1_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Sprites\Store\Product_1.png', self.const.attribute_width, self.const.attribute_height)
-        self.product_2_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Sprites\Store\Product_2.png', self.const.attribute_width, self.const.attribute_height)
+        self.product_1_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Store\Product_1.png', self.const.attribute_width, self.const.attribute_height)
+        self.product_2_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Store\Product_2.png', self.const.attribute_width, self.const.attribute_height)
 
     def run(self, launcher):
         self.products = pg.sprite.Group()

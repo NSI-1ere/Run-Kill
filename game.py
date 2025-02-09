@@ -43,7 +43,7 @@ class Game():
     def run(self, launcher):
         self.new_game()
         pg.display.set_caption("Run&Kill")
-        Icon = pg.image.load(self.const.chemin_repertoire + r'/Sprites/Banner/Icon.png')
+        Icon = pg.image.load(self.const.chemin_repertoire + r'/Assets/Banner/Icon.png')
         pg.display.set_icon(Icon)
         pg.key.set_repeat()
         self.player.new_game()

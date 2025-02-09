@@ -45,8 +45,8 @@ class Player():
         self.all_sprites.add(self.sprites)
 
         # Gérer la vie
-        self.heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Sprites\Life\Heart.png', self.const.heart_width, self.const.heart_height)
-        self.broken_heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Sprites\Life\BrokenHeart.png', self.const.broken_heart_width, self.const.heart_height)
+        self.heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Life\Heart.png', self.const.heart_width, self.const.heart_height)
+        self.broken_heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Life\BrokenHeart.png', self.const.broken_heart_width, self.const.heart_height)
         self.previous_hp = self.hp_counter
 
     def new_game(self):
@@ -59,6 +59,17 @@ class Player():
         self.hp_counter = 3
         self.previous_hp = self.hp_counter
         self.update_hearts()
+
+        # Music
+
+        pg.mixer.init()
+        pg.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\MainLoop.mp3')
+        pg.mixer.music.set_volume(0.3)
+        pg.mixer.music.play(-1)
+
+        self.hit_sound = pg.mixer.Sound(self.const.chemin_repertoire + r'.\Assets\Soundtrack\DamageSound.mp3')
+        self.attack_hit_sound = pg.mixer.Sound(self.const.chemin_repertoire + r'.\Assets\Soundtrack\AttackSound.mp3')
+
 
     def handle_input(self):
         self.actual_time = pg.time.get_ticks()
@@ -127,6 +138,7 @@ class Player():
                     if isinstance(opponent, Zombie):
                         if self.check_collision(opponent, self.all_projectiles):
                             self.all_opponents.remove(opponent)
+                            self.attack_hit_sound.play().set_volume(0.5)
                 self.all_projectiles.remove(each)
 
         for each in self.all_opponents:
@@ -141,7 +153,9 @@ class Player():
                 self.hp_counter -= 1
                 self.blinking_interval = self.const.blinking_interval
                 self.blinking_iterations = self.const.blinking_iterations
+                self.hit_sound.play().set_volume(0.5)
                 if self.hp_counter <= 0:
+                    pg.mixer.music.stop()
                     self.game_over.run(game, launcher)
                 
         if self.hp_counter != self.previous_hp:
