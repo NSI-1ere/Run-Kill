@@ -55,6 +55,7 @@ class Game():
                     self.running = False
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
+                        launcher.run()
                         self.running = False
 
             # Mise à jour

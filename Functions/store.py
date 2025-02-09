@@ -22,6 +22,7 @@ class Store():
         self.font = pg.font.Font(None, 160)
 
     def run(self, launcher):
+        self.button_x, self.button_y = 50, 150
         self.products = pg.sprite.Group()
         self.products.add(Attribute(self.product_1_image, 50, 50))
         self.products.add(Attribute(self.product_2_image, 150, 50))
