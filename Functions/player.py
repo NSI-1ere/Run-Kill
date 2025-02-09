@@ -69,6 +69,7 @@ class Player():
 
         self.hit_sound = pg.mixer.Sound(self.const.chemin_repertoire + r'.\Assets\Soundtrack\DamageSound.mp3')
         self.attack_hit_sound = pg.mixer.Sound(self.const.chemin_repertoire + r'.\Assets\Soundtrack\AttackSound.mp3')
+        self.gun_firing_sound = pg.mixer.Sound(self.const.chemin_repertoire + r'.\Assets\Soundtrack\GunFiringSound.mp3')
 
 
     def handle_input(self):
@@ -91,6 +92,7 @@ class Player():
             if self.actual_time - self.last_action_time >= 250:
                 self.last_action_time = self.actual_time
                 self.all_projectiles.add(Attack(self))
+                self.gun_firing_sound.play().set_volume(0.3)
 
     def gen_opponents(self):
         if self.item_generation_counter > 0:
@@ -184,6 +186,8 @@ class Player():
         
         if self.blinking_iterations <= 0:
             self.all_sprites.draw(self.const.SCREEN)
+        
+        self.speed += 0.1
         
         self.all_projectiles.draw(self.const.SCREEN)
         self.all_opponents.draw(self.const.SCREEN)

@@ -15,6 +15,11 @@ class GameOver():
         self.const.SCREEN.fill((0, 0, 0))
         self.const.SCREEN.blit(game.background, (0, 0))
         self.const.SCREEN.blit(self.text, self.text_rect)
+        pygame.mixer.init()
+        pygame.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\GameOverLoop.mp3')
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1)
+
         while self.is_game_over:
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
@@ -27,6 +32,10 @@ class GameOver():
                     if event.key == pygame.K_RETURN:
                         self.is_game_over = False
                         game.run(launcher)
+
+            if self.is_game_over == False:
+                pygame.mixer.stop()
+            
             pygame.display.flip()
             self.const.CLOCK.tick(self.const.FPS)
                         
