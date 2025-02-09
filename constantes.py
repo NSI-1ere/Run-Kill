@@ -13,6 +13,10 @@ class Const():
         self.heart_height = 50
         self.heart_offset = 30
         self.heart_y = 50
+        self.skull_height = 83
+        self.skull_width = 55
+        self.skull_y = 50
+        self.skull_x = 50
         self.skeleton_width = 67
         self.skeleton_height = 120
         self.running_car_width = 110

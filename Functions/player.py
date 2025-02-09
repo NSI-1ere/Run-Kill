@@ -8,6 +8,8 @@ from Functions.running_car import RunningCar
 from Functions.broken_car import BrokenCar
 from Functions.game_over import GameOver
 from Functions.image_loader import ImageLoader
+from Functions.xp_counter import XPCounter
+from Functions.csv_manager import CSVManager
 
 class Player():
     def __init__(self):
@@ -15,6 +17,7 @@ class Player():
         self.sprites = Sprite()
         self.game_over = GameOver()
         self.loader = ImageLoader()
+        self.csv_manager = CSVManager()
         self.x = self.const.lane_positions[1] - self.const.player_width/2
         self.y = self.const.screen_height / 5 * 4
         self.height = self.const.player_height
@@ -36,12 +39,19 @@ class Player():
         self.blinking_iterations = 0
         self.last_generated_opponent = None
         self.last_generated_opponent_lane = None
+        self.inventory = []
+
+        if self.csv_manager.fetch_save_file() == (0, []):
+            self.csv_manager.write_save_file(0, [])
+        
+        self.xp_counter = self.csv_manager.fetch_save_file()[0]
 
         # Groupes de sprites (facilitent le rendu et les collisions)
         self.all_projectiles = pg.sprite.Group()
         self.all_sprites = pg.sprite.Group()
         self.all_opponents = pg.sprite.Group()
         self.all_hearts = pg.sprite.Group()
+        self.all_xp = pg.sprite.Group()
         self.all_sprites.add(self.sprites)
 
         # Gérer la vie
@@ -49,16 +59,21 @@ class Player():
         self.broken_heart_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Life\BrokenHeart.png', self.const.broken_heart_width, self.const.heart_height)
         self.previous_hp = self.hp_counter
 
+        self.previous_xp_counter = self.xp_counter
+
     def new_game(self):
         self.all_projectiles = pg.sprite.Group()
         self.all_sprites = pg.sprite.Group()
         self.all_opponents = pg.sprite.Group()
         self.all_sprites.add(self.sprites)
         self.all_hearts = pg.sprite.Group()
+        self.all_xp = pg.sprite.Group()
         self.x = self.const.lane_positions[1] - self.const.player_width/2
         self.hp_counter = 3
         self.previous_hp = self.hp_counter
+        self.previous_xp_counter = self.xp_counter
         self.update_hearts()
+        self.update_xp_count()
 
         # Music
 
@@ -141,6 +156,7 @@ class Player():
                         if self.check_collision(opponent, self.all_projectiles):
                             self.all_opponents.remove(opponent)
                             self.attack_hit_sound.play().set_volume(0.5)
+                            self.xp_counter += 1
                 self.all_projectiles.remove(each)
 
         for each in self.all_opponents:
@@ -163,6 +179,9 @@ class Player():
         if self.hp_counter != self.previous_hp:
             self.update_hearts()
 
+        if self.xp_counter != self.previous_xp_counter:
+            self.update_xp_count()
+
 
     def update_hearts(self):
         self.all_hearts.empty()
@@ -174,6 +193,13 @@ class Player():
             self.all_hearts.add(Life(self.broken_heart_image, self.draw_pos, self.const.heart_y))
             self.draw_pos += self.const.heart_width + self.const.heart_offset
         self.previous_hp = self.hp_counter
+
+    def update_xp_count(self):
+        self.csv_manager.update_save_file(self.xp_counter)
+        self.all_xp.empty()
+        self.all_xp.add(XPCounter(self))
+        self.previous_xp_counter = self.xp_counter
+
 
     def draw(self):
         if self.blinking_iterations > 0:
@@ -189,6 +215,7 @@ class Player():
         
         self.speed += 0.1
         
+        self.all_xp.draw(self.const.SCREEN)
         self.all_projectiles.draw(self.const.SCREEN)
         self.all_opponents.draw(self.const.SCREEN)
         self.all_hearts.draw(self.const.SCREEN)
