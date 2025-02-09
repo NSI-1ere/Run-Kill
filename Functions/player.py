@@ -3,7 +3,7 @@ from constantes import Const
 from Functions.sprite import Sprite
 from Functions.life import Life
 from Functions.attack import Attack
-from Functions.zombie import Zombie
+from Functions.skeleton import Skeleton
 from Functions.running_car import RunningCar
 from Functions.broken_car import BrokenCar
 from Functions.game_over import GameOver
@@ -24,8 +24,8 @@ class Player():
         self.lane_positions = self.const.lane_positions
         self.key_counter = 0
         self.last_action_time = pg.time.get_ticks()
-        self.zombie_x = self.const.screen_width / 2
-        self.zombie_y = 0
+        self.skeleton_x = self.const.screen_width / 2
+        self.skeleton_y = 0
         self.item_generation_counter = 10
         self.running_car_x = self.const.screen_width / 2
         self.running_car_y = 0
@@ -111,9 +111,9 @@ class Player():
             self.last_generated_opponent = what_to_gen
             self.last_generated_opponent_lane = lane_to_use
 
-            if what_to_gen == "zombie":
-                self.zombie_x = lane_to_use
-                self.all_opponents.add(Zombie(self))
+            if what_to_gen == "skeleton":
+                self.skeleton_x = lane_to_use
+                self.all_opponents.add(Skeleton(self))
             elif what_to_gen == "running_car":
                 self.running_car_x = lane_to_use
                 self.all_opponents.add(RunningCar(self))
@@ -137,7 +137,7 @@ class Player():
                 self.all_projectiles.remove(each)
             if self.check_collision(each, self.all_opponents):
                 for opponent in self.all_opponents:
-                    if isinstance(opponent, Zombie):
+                    if isinstance(opponent, Skeleton):
                         if self.check_collision(opponent, self.all_projectiles):
                             self.all_opponents.remove(opponent)
                             self.attack_hit_sound.play().set_volume(0.5)

@@ -7,14 +7,14 @@ class Const():
         self.screen_width, self.screen_height = pg.display.get_surface().get_size()
         self.player_width = 110
         self.player_height = 110
-        self.opponents = ["zombie", "running_car", "broken_car"]
+        self.opponents = ["skeleton", "running_car", "broken_car"]
         self.heart_width = 50
         self.broken_heart_width = 56
         self.heart_height = 50
         self.heart_offset = 30
         self.heart_y = 50
-        self.zombie_width = 110
-        self.zombie_height = 110
+        self.skeleton_width = 67
+        self.skeleton_height = 120
         self.running_car_width = 110
         self.running_car_height = 196
         self.broken_car_width = 110
@@ -22,7 +22,7 @@ class Const():
         self.button_width = 400
         self.button_height = 150
         self.update_opps_frames = 5
-        self.zombie_velocity = 3
+        self.skeleton_velocity = 3
         self.scrolling_velocity = 1
         self.running_car_velocity = 6
         self.car_start_px_from_player = 300
