@@ -136,7 +136,7 @@ class Player():
                 self.broken_car_x = lane_to_use - self.const.broken_car_width/2
                 self.all_opponents.add(BrokenCar(self))
 
-            self.item_generation_counter = 250
+            self.item_generation_counter = 350
 
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
@@ -212,8 +212,6 @@ class Player():
         
         if self.blinking_iterations <= 0:
             self.all_sprites.draw(self.const.SCREEN)
-        
-        self.speed += 0.1
         
         self.all_xp.draw(self.const.SCREEN)
         self.all_projectiles.draw(self.const.SCREEN)
