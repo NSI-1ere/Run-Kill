@@ -4,7 +4,7 @@ from constantes import Const
 class GameOver():
     def __init__(self):
         self.const = Const()
-        self.font = pygame.font.Font(None, 160)
+        self.font = pygame.font.Font(self.const.chemin_repertoire + r'.\Assets\Fonts\PixelOperator-Bold.ttf', 160)
         self.text = self.font.render("Game Over", True, (255, 0, 0))
         self.text_rect = self.text.get_rect()
         self.text_rect.center = (self.const.screen_width // 2, self.const.screen_height // 2)
