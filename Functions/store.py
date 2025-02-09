@@ -24,14 +24,23 @@ class Store():
         running = True
         self.const.SCREEN.fill((0, 0, 0))
         self.const.SCREEN.blit(launcher.game.background, (0, 0))
+        pg.mixer.init()
+        pg.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\ShopLoop.mp3')
+        pg.mixer.music.set_volume(0.3)
+        pg.mixer.music.play(-1)
+
         while running:
             for event in pg.event.get():
                 if event.type == pg.QUIT:
                     running = False
                 if event.type == pg.KEYDOWN:
                     if event.key == pg.K_ESCAPE:
+                        pg.mixer.music.stop()
                         launcher.run()
                         running = False
+                        
+                if running == False:
+                    pg.mixer.music.stop()
 
             self.draw()
             pg.display.flip()

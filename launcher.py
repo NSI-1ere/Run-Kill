@@ -33,12 +33,12 @@ class Launcher():
         self.store_button_rect.y = math.ceil(self.const.screen_height - 50 - self.store_button_rect.height)
 
         pygame.mixer.init()
-        pygame.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\LauncherLoop.mp3')
-        pygame.mixer.music.set_volume(0.3)
-        pygame.mixer.music.play(-1)
 
     def run(self):
         pygame.key.set_repeat()
+        pygame.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\LauncherLoop.mp3')
+        pygame.mixer.music.set_volume(0.3)
+        pygame.mixer.music.play(-1)
         self.const.SCREEN.fill((255, 0, 0))
         self.const.SCREEN.blit(self.game.background, (0, 0))
         self.const.SCREEN.blit(self.play_button, self.play_button_rect)
