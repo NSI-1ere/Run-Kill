@@ -28,10 +28,10 @@ class Const():
         self.attack_width = 30
         self.attack_height = 30
         self.update_opps_frames = 5
-        self.skeleton_velocity = 3
-        self.scrolling_velocity = 1
-        self.running_car_velocity = 6
-        self.car_start_px_from_player = 300
+        self.skeleton_velocity = 4
+        self.scrolling_velocity = 2
+        self.running_car_velocity = 8
+        self.car_start_px_from_player = 600
         self.speed = 10
         self.lanes = 3
         self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))

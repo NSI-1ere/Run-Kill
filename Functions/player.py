@@ -28,12 +28,12 @@ class Player():
         self.key_counter = 0
         self.last_action_time = pg.time.get_ticks()
         self.skeleton_x = self.const.screen_width / 2
-        self.skeleton_y = 0
+        self.skeleton_y = -self.const.skeleton_height
         self.item_generation_counter = 10
         self.running_car_x = self.const.screen_width / 2
-        self.running_car_y = 0
+        self.running_car_y = -self.const.running_car_height
         self.broken_car_x = self.const.screen_width / 2
-        self.broken_car_y = 0
+        self.broken_car_y = -self.const.broken_car_height
         self.hp_counter = 3
         self.blinking_interval = 0
         self.blinking_iterations = 0
@@ -136,7 +136,7 @@ class Player():
                 self.broken_car_x = lane_to_use - self.const.broken_car_width/2
                 self.all_opponents.add(BrokenCar(self))
 
-            self.item_generation_counter = 350
+            self.item_generation_counter = 250
 
     def check_collision(self, sprite, group):
         return pg.sprite.spritecollide(sprite, group, False, pg.sprite.collide_mask)
