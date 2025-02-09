@@ -21,6 +21,8 @@ class Const():
         self.broken_car_height = 196
         self.button_width = 400
         self.button_height = 150
+        self.attack_width = 30
+        self.attack_height = 30
         self.update_opps_frames = 5
         self.skeleton_velocity = 3
         self.scrolling_velocity = 1
