@@ -15,12 +15,12 @@ class Player():
         self.sprites = Sprite()
         self.game_over = GameOver()
         self.loader = ImageLoader()
-        self.x = self.const.lane_positions[1]
+        self.x = self.const.lane_positions[1] - self.const.player_width/2
         self.y = self.const.screen_height / 5 * 4
         self.height = self.const.player_height
         self.width = self.const.player_width
         self.speed = self.const.speed
-        self.current_lane = round(self.const.lanes / 2)
+        self.current_lane = 2
         self.lane_positions = self.const.lane_positions
         self.key_counter = 0
         self.last_action_time = pg.time.get_ticks()
@@ -55,7 +55,7 @@ class Player():
         self.all_opponents = pg.sprite.Group()
         self.all_sprites.add(self.sprites)
         self.all_hearts = pg.sprite.Group()
-        self.x = self.const.lane_positions[1]
+        self.x = self.const.lane_positions[1] - self.const.player_width/2
         self.hp_counter = 3
         self.previous_hp = self.hp_counter
         self.update_hearts()
@@ -81,12 +81,12 @@ class Player():
         if keys[pg.K_LEFT] or keys[pg.K_q]:
             if self.current_lane >= 2:
                 self.current_lane -= 1
-                self.x = self.lane_positions[self.current_lane - 1]
+                self.x = self.lane_positions[self.current_lane - 1] - self.const.player_width/2
                 self.key_counter = 10
         if keys[pg.K_RIGHT] or keys[pg.K_d]:
             if self.current_lane <= self.const.lanes - 1:
                 self.current_lane += 1
-                self.x = self.lane_positions[self.current_lane - 1]
+                self.x = self.lane_positions[self.current_lane - 1] - self.const.player_width/2
                 self.key_counter = 10
         if keys[pg.K_SPACE] or keys[pg.K_z]:
             if self.actual_time - self.last_action_time >= 250:
@@ -112,13 +112,13 @@ class Player():
             self.last_generated_opponent_lane = lane_to_use
 
             if what_to_gen == "skeleton":
-                self.skeleton_x = lane_to_use
+                self.skeleton_x = lane_to_use - self.const.skeleton_width/2
                 self.all_opponents.add(Skeleton(self))
             elif what_to_gen == "running_car":
-                self.running_car_x = lane_to_use
+                self.running_car_x = lane_to_use - self.const.running_car_width/2
                 self.all_opponents.add(RunningCar(self))
             elif what_to_gen == "broken_car":
-                self.broken_car_x = lane_to_use
+                self.broken_car_x = lane_to_use - self.const.broken_car_width/2
                 self.all_opponents.add(BrokenCar(self))
 
             self.item_generation_counter = 250
