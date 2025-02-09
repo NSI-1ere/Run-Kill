@@ -32,7 +32,8 @@ class Const():
         self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
         self.lane_positions = [(self.screen_width / 20) * 4.5 + self.player_width/2 - self.lane_width/4 , (self.screen_width / 20) * 9.5 + self.player_width/2 - self.lane_width/4, (self.screen_width / 20) * 14.5 + self.player_width/2 - self.lane_width/4]
         self.draw_heart_position = self.screen_width - 50 - (self.heart_width * 3 + self.heart_offset * 3)
-        self.attribute_width, self.attribute_height = 50, 50
+        self.attribute_width, self.attribute_height = 100, 100
         self.store_button_width, self.store_button_height = 200, 200
         self.blinking_interval = 30
         self.blinking_iterations = 3
+        self.buy_button_width, self.buy_button_height = 100, 32
