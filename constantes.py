@@ -17,7 +17,12 @@ class Const():
         self.heart_height = 50
         self.heart_offset = 30
         self.heart_y = 50
-        # Squelette
+        # Experience
+        self.skull_height = 83
+        self.skull_width = 55
+        self.skull_y = 50
+        self.skull_x = 50
+        #Squelette
         self.skeleton_width = 67
         self.skeleton_height = 120
         # Voitures
@@ -37,10 +42,10 @@ class Const():
 
         # Vitesses
         self.update_opps_frames = 5
-        self.skeleton_velocity = 3
-        self.scrolling_velocity = 1
-        self.running_car_velocity = 6
-        self.car_start_px_from_player = 300
+        self.skeleton_velocity = 4
+        self.scrolling_velocity = 2
+        self.running_car_velocity = 8
+        self.car_start_px_from_player = 600
         self.speed = 10
 
         # Autres
