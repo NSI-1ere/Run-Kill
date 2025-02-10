@@ -1,4 +1,5 @@
 import pygame as pg
+import csv
 from constantes import Const
 from Functions.image_loader import ImageLoader
 
@@ -54,6 +55,8 @@ class Store():
                     for i in self.rect_list:
                         if i.collidepoint(event.pos):
                             self.const.SCREEN.blit(self.font.render("Bought",True,(0,0,0)), (i.x, i.y))
+                            self.record_purchase(self.rect_list.index(i))
+                            self.rect_list.remove(i)
                         
                 if running == False:
                     pg.mixer.music.stop()
@@ -61,6 +64,32 @@ class Store():
             self.draw()
             pg.display.flip()   
 
+    def record_purchase(self, product_index):
+        product_name = f'Product_{product_index + 1}'
+        purchases = {}
+
+        # Lire le fichier CSV existant et charger les données dans un dictionnaire
+        try:
+            with open('purchases.csv', mode='r') as file:
+                reader = csv.reader(file)
+                for row in reader:
+                    if row:
+                        purchases[row[0]] = int(row[1])
+        except FileNotFoundError:
+            # Si le fichier n'existe pas, ignorer cette étape
+            pass
+
+        # Mettre à jour ou ajouter l'achat
+        if product_name in purchases:
+            purchases[product_name] += 1
+        else:
+            purchases[product_name] = 1
+
+        # Écrire les données mises à jour dans le fichier CSV
+        with open('purchases.csv', mode='w', newline='') as file:
+            writer = csv.writer(file)
+            for product, count in purchases.items():
+                writer.writerow([product, count])
 
     def draw(self):
         self.products.draw(self.const.SCREEN)
