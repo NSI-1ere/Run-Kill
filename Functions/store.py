@@ -21,6 +21,7 @@ class Store():
         self.product_2_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Store\Product_2.png', self.const.attribute_width, self.const.attribute_height)
         self.button_x, self.button_y = 50, 150
         self.font = pg.font.Font(None, 160)
+        self.csv_path = self.const.chemin_repertoire + r".\Save\purchases.csv"
 
     def run(self, launcher):
         self.button_x, self.button_y = 50, 150
@@ -70,7 +71,7 @@ class Store():
 
         # Lire le fichier CSV existant et charger les données dans un dictionnaire
         try:
-            with open('purchases.csv', mode='r') as file:
+            with open(self.csv_path, mode='r') as file:
                 reader = csv.reader(file)
                 for row in reader:
                     if row:
@@ -86,7 +87,7 @@ class Store():
             purchases[product_name] = 1
 
         # Écrire les données mises à jour dans le fichier CSV
-        with open('purchases.csv', mode='w', newline='') as file:
+        with open(self.csv_path, mode='w', newline='') as file:
             writer = csv.writer(file)
             for product, count in purchases.items():
                 writer.writerow([product, count])
