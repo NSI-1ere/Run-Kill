@@ -1,6 +1,9 @@
 import os, pygame as pg
+from Functions.csv_manager import CSVManager
+
 class Const():
     def __init__(self):
+        self.csv_manager = CSVManager()
         # Affichage
         self.SCREEN = pg.display.set_mode((0, 0), pg.FULLSCREEN, pg.DOUBLEBUF | pg.HWSURFACE)
         self.CLOCK = pg.time.Clock()
@@ -56,3 +59,27 @@ class Const():
         self.blinking_interval = 30
         self.blinking_iterations = 3
         self.opponents = ["skeleton", "running_car", "broken_car"]
+
+        # Chemins d'image
+        self.skin_1 = self.chemin_repertoire + r'.\Assets\Player\Basic Skin.png'
+        #self.skin_2 = self.chemin_repertoire + r'.\Assets\Player\Advanced Skin.png'
+        self.map_1 = self.chemin_repertoire + r'.\Backgrounds\Map.png'
+        self.map_2 = self.chemin_repertoire + r'.\Backgrounds\Map_2.png'
+        self.railgun = self.chemin_repertoire + r'.\Assets\Weapons\Railgun.png'
+        self.products = ["Product_1", "Product_2", "Product_3"]
+ 
+        self.railgun_stat = False
+        self.skin = self.skin_1
+        self.map = self.map_1
+
+    def update_inventory(self):
+        xp, inventory = self.csv_manager.fetch_save_file()
+        for i in range(len(inventory)):
+            if inventory[i] == "Product_1":
+                self.skin = self.skin_1
+            if inventory[i] == "Product_2":
+                self.map = self.map_2
+            if inventory[i] == "Product_3":
+                self.railgun_stat = True
+        
+            

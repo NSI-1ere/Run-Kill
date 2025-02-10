@@ -37,6 +37,7 @@ class Launcher():
         pygame.mixer.music.load(self.const.chemin_repertoire + r'.\Assets\Soundtrack\LauncherLoop.mp3')
         pygame.mixer.music.set_volume(0.3)
         pygame.mixer.music.play(-1)
+        self.const.update_inventory()
         self.const.SCREEN.fill((255, 0, 0))
         self.const.SCREEN.blit(self.game.background, (0, 0))
         self.const.SCREEN.blit(self.play_button, self.play_button_rect)

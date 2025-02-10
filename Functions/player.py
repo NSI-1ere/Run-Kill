@@ -145,10 +145,13 @@ class Player():
         self.handle_input()
         self.sprites.active_sprite(keys, self.x, self.y)
         self.gen_opponents()
+        self.const.update_inventory()
 
         for each in self.all_projectiles:
             each.move()
-            if each.rect.y < self.const.screen_height / 2:
+            if each.rect.y < self.const.screen_height / 2 and self.const.railgun_stat == False:
+                self.all_projectiles.remove(each)
+            if each.rect.y >= self.const.screen_height and self.const.railgun_stat:
                 self.all_projectiles.remove(each)
             if self.check_collision(each, self.all_opponents):
                 for opponent in self.all_opponents:

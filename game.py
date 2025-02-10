@@ -17,11 +17,12 @@ class Game():
         self.scale_factor = self.const.screen_width / (16 * 20)
         self.map_y = 0
         self.map_2_y = 0 - self.const.screen_height
-
+        self.const.update_inventory()
         # Redimensionner l'image de l'arrière-plan aux dimensions de l'écran
-        self.background = self.loader.load_image(self.chemin_repertoire + r".\Backgrounds\Map.png", self.const.screen_width, self.const.screen_height)
+        self.background = self.loader.load_image(self.const.map, self.const.screen_width, self.const.screen_height)
 
     def new_game(self):
+        self.background = self.loader.load_image(self.const.map, self.const.screen_width, self.const.screen_height)
         # Groupes de sprites
         self.all_projectiles = pg.sprite.Group()
         self.all_sprites = pg.sprite.Group()

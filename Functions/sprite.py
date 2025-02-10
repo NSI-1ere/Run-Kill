@@ -12,7 +12,7 @@ class Sprite(pygame.sprite.Sprite):
         self.chemin_repertoire = self.const.chemin_repertoire
 
         # Charger toutes les images du joueur
-        self.spritesheet = self.loader.load_image(self.chemin_repertoire + r"\Assets\Player\Basic Skin.png",96, 774)
+        self.spritesheet = self.loader.load_image(self.const.skin,96, 774)
         self.image_1 = self.get_image(0,0)
         self.image_2 = self.get_image(0,129)
         self.image_3 = self.get_image(0,258)
