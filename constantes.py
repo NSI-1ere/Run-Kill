@@ -2,7 +2,7 @@ import os, pygame as pg
 class Const():
     def __init__(self):
         # Affichage
-        self.SCREEN = pg.display.set_mode((0, 0), pg.FULLSCREEN)
+        self.SCREEN = pg.display.set_mode((0, 0), pg.FULLSCREEN, pg.DOUBLEBUF | pg.HWSURFACE)
         self.CLOCK = pg.time.Clock()
         self.FPS = 60
         self.screen_width, self.screen_height = pg.display.get_surface().get_size()

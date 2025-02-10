@@ -22,10 +22,12 @@ class Game():
         self.background = self.loader.load_image(self.chemin_repertoire + r".\Backgrounds\Map.png", self.const.screen_width, self.const.screen_height)
 
     def new_game(self):
+        # Groupes de sprites
         self.all_projectiles = pg.sprite.Group()
         self.all_sprites = pg.sprite.Group()
         self.all_opponents = pg.sprite.Group()
         self.all_sprites.add(self.player.sprites)
+        # Coordonées de chargement de l'arrière-plan
         self.map_y = 0
         self.map_2_y = 0 - self.const.screen_height
 
@@ -62,10 +64,8 @@ class Game():
             keys = pg.key.get_pressed()
             self.player.update(keys, self, launcher)
 
-            
+            # Dessiner l'arrière-plan
             self.scrolling()
-
-
             # Dessiner le joueur
             self.player.draw()
 
