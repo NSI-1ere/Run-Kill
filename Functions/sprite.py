@@ -12,6 +12,7 @@ class Sprite(pygame.sprite.Sprite):
         self.chemin_repertoire = self.const.chemin_repertoire
 
         # Charger toutes les images du joueur
+        self.const.update_inventory()
         self.spritesheet = self.loader.load_image(self.const.skin,96, 774)
         self.image_1 = self.get_image(0,0)
         self.image_2 = self.get_image(0,129)
@@ -71,14 +72,3 @@ class Sprite(pygame.sprite.Sprite):
         if touches[pygame.K_a] or touches[pygame.K_SPACE]:
             self.image = self.image_2
             self.next_frame = 5
-
-        """if touches[pygame.K_LEFT]:
-            if self.image_path != self.image_left:
-                self.image_path = self.image_left
-                self.image = pygame.image.load(self.image_path).convert_alpha()
-                self.image = pygame.transform.scale(self.image, (width, height))
-        if touches[pygame.K_RIGHT]:
-            if self.image_path != self.image_right:
-                self.image_path = self.image_right
-                self.image = pygame.image.load(self.image_path).convert_alpha()
-                self.image = pygame.transform.scale(self.image, (width, height))"""

@@ -43,6 +43,7 @@ class Const():
         self.attribute_width, self.attribute_height = 100, 100
         self.buy_button_width, self.buy_button_height = 100, 32
         self.shop_text_offset_y = 50
+        self.shop_offers_offset_x = 100
 
         # Vitesses
         self.update_opps_frames = 5
@@ -63,7 +64,7 @@ class Const():
 
         # Chemins d'image
         self.skin_1 = self.chemin_repertoire + r'.\Assets\Player\Basic Skin.png'
-        #self.skin_2 = self.chemin_repertoire + r'.\Assets\Player\Advanced Skin.png'
+        self.skin_2 = self.chemin_repertoire + r'.\Assets\Player\Advanced Skin.png'
         self.map_1 = self.chemin_repertoire + r'.\Backgrounds\Map.png'
         self.map_2 = self.chemin_repertoire + r'.\Backgrounds\Map_2.png'
         self.railgun = self.chemin_repertoire + r'.\Assets\Weapons\Railgun.png'
@@ -77,7 +78,7 @@ class Const():
         xp, inventory = self.csv_manager.fetch_save_file()
         for i in range(len(inventory)):
             if inventory[i] == "Product_1":
-                self.skin = self.skin_1
+                self.skin = self.skin_2
             if inventory[i] == "Product_2":
                 self.map = self.map_2
             if inventory[i] == "Product_3":

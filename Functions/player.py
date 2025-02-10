@@ -71,6 +71,7 @@ class Player():
         self.x = self.const.lane_positions[1] - self.const.player_width/2
         self.hp_counter = 3
         self.previous_hp = self.hp_counter
+        self.xp_counter = self.csv_manager.fetch_save_file()[0]
         self.previous_xp_counter = self.xp_counter
         self.update_hearts()
         self.update_xp_count()
