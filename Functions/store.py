@@ -30,8 +30,7 @@ class Store():
         self.product_3_image_rect = self.product_3_image.get_rect()
         self.product_rect_list = [self.product_1_image_rect, self.product_2_image_rect, self.product_3_image_rect]
         self.button_x, self.button_y = 50, 150
-        self.font = pg.font.Font(None, 160)
-        self.csv_path = self.const.chemin_repertoire + r".\Save\purchases.csv"
+        self.font = pg.font.Font(self.const.chemin_repertoire + r".\Assets\Fonts\PixelOperator8.ttf", 40)
 
     def run(self, launcher):
         self.button_x, self.button_y = 50, 150
@@ -67,7 +66,7 @@ class Store():
                     for i in self.rect_list:
                         if i.collidepoint(event.pos):
                             if f'Product_{self.rect_list.index(i) + 1}' in self.csv_manager.fetch_save_file()[1]:
-                                self.const.SCREEN.blit(self.font.render("Already in inventory",True,(0,0,0)), (i.x, i.y))
+                                self.const.SCREEN.blit(self.font.render("Already in inventory",True,(255,0,0)), (i.x, i.y))
                             else:
                                 self.record_purchase(self.rect_list.index(i), self.costs[self.rect_list.index(i)], i)
                             self.rect_list.remove(i)
@@ -89,9 +88,9 @@ class Store():
             inventory.append(product_name)
             self.csv_manager.update_save_file(new_xp=xp, new_inventory=inventory)
             self.const.update_inventory()
-            self.const.SCREEN.blit(self.font.render("Bought",True,(0,0,0)), (i.x, i.y))
+            self.const.SCREEN.blit(self.font.render("Bought.",True,(255,0,0)), (i.x, i.y + self.const.shop_text_offset_y))
         elif xp < cost:
-            self.const.SCREEN.blit(self.font.render("Not enough xp",True,(0,0,0)), (i.x, i.y))
+            self.const.SCREEN.blit(self.font.render("Not enough XP.",True,(255,0,0)), (i.x, i.y + self.const.shop_text_offset_y))
 
     def draw(self):
         self.products.draw(self.const.SCREEN)

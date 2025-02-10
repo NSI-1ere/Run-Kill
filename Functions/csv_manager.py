@@ -3,8 +3,8 @@ import csv, os
 class CSVManager:
     def __init__(self):
         self.chemin_repertoire = os.path.dirname(os.path.abspath(__file__))
-        os.makedirs(self.chemin_repertoire + r'.\Save', exist_ok=True)
-        self.csv_file = self.chemin_repertoire + r'.\Save\save.csv'
+        os.makedirs(self.chemin_repertoire + r'.\..\Save', exist_ok=True)
+        self.csv_file = self.chemin_repertoire + r'.\..\Save\save.csv'
 
     def write_save_file(self, xp: int, inventory: list):
         with open(self.csv_file, mode="w", newline="", encoding="utf-8") as file:

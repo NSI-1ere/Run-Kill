@@ -42,6 +42,7 @@ class Const():
         # Shop
         self.attribute_width, self.attribute_height = 100, 100
         self.buy_button_width, self.buy_button_height = 100, 32
+        self.shop_text_offset_y = 50
 
         # Vitesses
         self.update_opps_frames = 5
