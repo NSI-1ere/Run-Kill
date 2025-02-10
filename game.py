@@ -38,10 +38,10 @@ class Game():
         self.map_y += self.const.scrolling_velocity
         self.const.SCREEN.blit(self.background, (0, self.map_2_y))
         self.map_2_y += self.const.scrolling_velocity
-        if self.map_y >= 1080:
-            self.map_y = 0 - 1080
-        if self.map_2_y >= 1080:
-            self.map_2_y = 0 - 1080
+        if self.map_y >= self.const.screen_height:
+            self.map_y = 0 - self.const.screen_height
+        if self.map_2_y >= self.const.screen_height:
+            self.map_2_y = 0 - self.const.screen_height
 
     def run(self, launcher):
         self.new_game()
