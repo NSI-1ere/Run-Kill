@@ -1,5 +1,5 @@
 import pygame as pg
-import csv
+from Functions.csv_manager import CSVManager
 from constantes import Const
 from Functions.image_loader import ImageLoader
 
@@ -15,6 +15,7 @@ class Store():
     def __init__(self):
         self.const = Const()
         self.loader = ImageLoader()
+        self.csv_manager = CSVManager()
         self.button_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Store\Buy_Button.png', self.const.buy_button_width, self.const.buy_button_height)
         self.button_image_rect = self.button_image.get_rect()
         self.product_1_image = self.loader.load_image(self.const.chemin_repertoire + r'.\Assets\Store\Product_1.png', self.const.attribute_width, self.const.attribute_height)
@@ -55,8 +56,11 @@ class Store():
                 if event.type == pg.MOUSEBUTTONDOWN:
                     for i in self.rect_list:
                         if i.collidepoint(event.pos):
-                            self.const.SCREEN.blit(self.font.render("Bought",True,(0,0,0)), (i.x, i.y))
-                            self.record_purchase(self.rect_list.index(i))
+                            if f'Product_{self.rect_list.index(i) + 1}' in self.csv_manager.fetch_save_file()[1]:
+                                self.const.SCREEN.blit(self.font.render("Already in inventory",True,(0,0,0)), (i.x, i.y))
+                            else:
+                                self.const.SCREEN.blit(self.font.render("Bought",True,(0,0,0)), (i.x, i.y))
+                                self.record_purchase(self.rect_list.index(i))
                             self.rect_list.remove(i)
                         
                 if running == False:
@@ -67,30 +71,11 @@ class Store():
 
     def record_purchase(self, product_index):
         product_name = f'Product_{product_index + 1}'
-        purchases = {}
-
-        # Lire le fichier CSV existant et charger les données dans un dictionnaire
-        try:
-            with open(self.csv_path, mode='r') as file:
-                reader = csv.reader(file)
-                for row in reader:
-                    if row:
-                        purchases[row[0]] = int(row[1])
-        except FileNotFoundError:
-            # Si le fichier n'existe pas, ignorer cette étape
-            pass
-
-        # Mettre à jour ou ajouter l'achat
-        if product_name in purchases:
-            purchases[product_name] += 1
-        else:
-            purchases[product_name] = 1
-
-        # Écrire les données mises à jour dans le fichier CSV
-        with open(self.csv_path, mode='w', newline='') as file:
-            writer = csv.writer(file)
-            for product, count in purchases.items():
-                writer.writerow([product, count])
+        xp, inventory = self.csv_manager.fetch_save_file()
+        
+        if product_name not in inventory:
+            inventory.append(product_name)
+            self.csv_manager.update_save_file(new_inventory=inventory)
 
     def draw(self):
         self.products.draw(self.const.SCREEN)
